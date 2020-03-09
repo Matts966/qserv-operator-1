@@ -23,6 +23,9 @@ type QservSpec struct {
 	// Czar defines the settings for czar cluster
 	Czar CzarSettings `json:"czar,omitempty"`
 
+	// Redis defines the settings for redis cluster
+	Redis RedisSettings `json:"redis,omitempty"`
+
 	// Replication defines the settings for the replication framework
 	Replication ReplicationSettings `json:"replication,omitempty"`
 
@@ -52,8 +55,11 @@ type WorkerSettings struct {
 
 // RedisSettings defines the specification of the Redis database for secondary index
 type RedisSettings struct {
-	DbImage  string `json:"dbimage,omitempty"`
-	Replicas int32  `json:"replicas,omitempty"`
+	Version string `json:"version,omitempty"`
+	// + kubebuilder:default:=0
+	Masters int32 `json:"masters,omitempty"`
+	// + kubebuilder:default:=0
+	Replicas int32 `json:"replicas,omitempty"`
 }
 
 // ReplicationSettings defines the specification of the replication framework

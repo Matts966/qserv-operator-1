@@ -40,6 +40,18 @@ spec:
                   format: int32
                   type: integer
               type: object
+            redis:
+              description: Redis defines the settings for redis cluster
+              properties:
+                masters:
+                  format: int32
+                  type: integer
+                replicas:
+                  format: int32
+                  type: integer
+                version:
+                  type: string
+              type: object
             replication:
               description: Replication defines the settings for the replication framework
               properties:
