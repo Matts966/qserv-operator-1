@@ -11,6 +11,7 @@ import (
 
 // QservSpec defines the desired state of Qserv
 // +k8s:openapi-gen=true
+// +kubebuilder:validation:Required
 type QservSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "operator-sdk generate k8s" to regenerate code after modifying this file
@@ -24,7 +25,8 @@ type QservSpec struct {
 	Czar CzarSettings `json:"czar,omitempty"`
 
 	// Redis defines the settings for redis cluster
-	Redis RedisSettings `json:"redis,omitempty"`
+	// +kubebuilder:validation:Optional
+	Redis *RedisSettings `json:"redis,omitempty"`
 
 	// Replication defines the settings for the replication framework
 	Replication ReplicationSettings `json:"replication,omitempty"`

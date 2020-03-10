@@ -101,7 +101,6 @@ func (r *ReconcileQserv) Reconcile(request reconcile.Request) (reconcile.Result,
 	}
 
 	r.scheme.Default(qserv)
-	kubedbscheme.AddToScheme(r.scheme)
 
 	syncers := []syncer.Interface{
 		sync.NewCzarStatefulSetSyncer(qserv, r.client, r.scheme),
@@ -117,12 +116,10 @@ func (r *ReconcileQserv) Reconcile(request reconcile.Request) (reconcile.Result,
 
 	syncers = append(sync.NewQservServicesSyncer(qserv, r.client, r.scheme), syncers...)
 
-	syncers = append(syncers, sync.NewRedisSyncer(qserv, r.client, r.scheme))
-	/*
-		if qserv.Spec.Redis.Master != 0 {
-
-		}
-	*/
+	if qserv.Spec.Redis != nil {
+		kubedbscheme.AddToScheme(r.scheme)
+		syncers = append(syncers, sync.NewRedisSyncer(qserv, r.client, r.scheme))
+	}
 
 	for _, configmapClass := range constants.ContainerConfigmaps {
 		for _, subpath := range []string{"etc", "start"} {
