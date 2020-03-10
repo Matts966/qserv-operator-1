@@ -17,8 +17,8 @@ func GenerateRedis(cr *qservv1alpha1.Qserv, labels map[string]string) *kubedbv1a
 	namespace := cr.Namespace
 	labels = util.MergeLabels(labels, util.GetLabels(constants.CzarName, cr.Name))
 
-	var masters int32 = 1
-	var replicas int32 = 1
+	var masters int32 = cr.Spec.Redis.Master
+	var replicas int32 = cr.Spec.Redis.Replicas
 	storageClass := cr.Spec.StorageClass
 	storageSize := cr.Spec.StorageCapacity
 

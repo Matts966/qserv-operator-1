@@ -119,7 +119,7 @@ func (r *ReconcileQserv) Reconcile(request reconcile.Request) (reconcile.Result,
 
 	syncers = append(syncers, sync.NewRedisSyncer(qserv, r.client, r.scheme))
 	/*
-		if qserv.Spec.Redis.Masters != 0 {
+		if qserv.Spec.Redis.Master != 0 {
 
 		}
 	*/

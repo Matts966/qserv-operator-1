@@ -43,7 +43,7 @@ spec:
             redis:
               description: Redis defines the settings for redis cluster
               properties:
-                masters:
+                master:
                   format: int32
                   type: integer
                 replicas:

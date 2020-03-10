@@ -9,7 +9,7 @@ spec:
     replicas: 3
     image: "qserv/qserv:ad8405c"
   redis:
-    master: 1
+    master: 4
     replicas: 1
   replication:
       image: "qserv/replica:tools-w.2018.16-1171-gcbabd53"

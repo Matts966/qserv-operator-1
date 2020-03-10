@@ -56,9 +56,9 @@ type WorkerSettings struct {
 // RedisSettings defines the specification of the Redis database for secondary index
 type RedisSettings struct {
 	Version string `json:"version,omitempty"`
-	// + kubebuilder:default:=0
-	Masters int32 `json:"masters,omitempty"`
-	// + kubebuilder:default:=0
+	// + kubebuilder:default:=3
+	Master int32 `json:"master,omitempty"`
+	// + kubebuilder:default:=1
 	Replicas int32 `json:"replicas,omitempty"`
 }
 
