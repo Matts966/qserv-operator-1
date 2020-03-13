@@ -101,6 +101,7 @@ func (r *ReconcileQserv) Reconcile(request reconcile.Request) (reconcile.Result,
 	}
 
 	r.scheme.Default(qserv)
+	kubedbscheme.AddToScheme(r.scheme)
 
 	syncers := []syncer.Interface{
 		sync.NewCzarStatefulSetSyncer(qserv, r.client, r.scheme),
@@ -116,11 +117,11 @@ func (r *ReconcileQserv) Reconcile(request reconcile.Request) (reconcile.Result,
 
 	syncers = append(sync.NewQservServicesSyncer(qserv, r.client, r.scheme), syncers...)
 
-	// Redis database is optional, it is used to store secodary index data
-	if qserv.Spec.Redis != nil {
-		kubedbscheme.AddToScheme(r.scheme)
-		syncers = append(syncers, sync.NewRedisSyncer(qserv, r.client, r.scheme))
-	}
+	// Redis database: optional, stores secondary index data
+	//if qserv.Spec.Redis != nil {
+	reqLogger.Info("Reconciling Redis")
+	syncers = append(syncers, sync.NewRedisSyncer(qserv, r.client, r.scheme))
+	//}
 
 	for _, configmapClass := range constants.ContainerConfigmaps {
 		for _, subpath := range []string{"etc", "start"} {

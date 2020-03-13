@@ -16,7 +16,7 @@ spec:
       containers:
         - name: qserv-operator
           # Replace this with the built image name
-          image: qserv/qserv-operator:2ba5e35-dirty
+          image: qserv/qserv-operator:05bcbbd-dirty
           command:
           - qserv-operator
           imagePullPolicy: Always

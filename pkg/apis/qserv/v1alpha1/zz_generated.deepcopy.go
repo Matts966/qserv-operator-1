@@ -90,11 +90,7 @@ func (in *QservList) DeepCopyObject() runtime.Object {
 func (in *QservSpec) DeepCopyInto(out *QservSpec) {
 	*out = *in
 	out.Czar = in.Czar
-	if in.Redis != nil {
-		in, out := &in.Redis, &out.Redis
-		*out = new(RedisSettings)
-		**out = **in
-	}
+	out.Redis = in.Redis
 	out.Replication = in.Replication
 	if in.Tolerations != nil {
 		in, out := &in.Tolerations, &out.Tolerations

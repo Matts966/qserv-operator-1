@@ -15,7 +15,7 @@ import (
 func GenerateRedis(cr *qservv1alpha1.Qserv, labels map[string]string) *kubedbv1alpha.Redis {
 	name := cr.Name + "-" + string(constants.RedisName)
 	namespace := cr.Namespace
-	labels = util.MergeLabels(labels, util.GetLabels(constants.CzarName, cr.Name))
+	labels = util.MergeLabels(labels, util.GetLabels(constants.RedisName, cr.Name))
 
 	var masters int32 = cr.Spec.Redis.Master
 	var replicas int32 = cr.Spec.Redis.Replicas

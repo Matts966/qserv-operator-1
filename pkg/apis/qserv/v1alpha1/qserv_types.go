@@ -26,7 +26,7 @@ type QservSpec struct {
 
 	// Redis defines the settings for redis cluster
 	// +kubebuilder:validation:Optional
-	Redis *RedisSettings `json:"redis,omitempty"`
+	Redis RedisSettings `json:"redis,omitempty"`
 
 	// Replication defines the settings for the replication framework
 	Replication ReplicationSettings `json:"replication,omitempty"`
