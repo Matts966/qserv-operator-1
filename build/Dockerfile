@@ -5,7 +5,7 @@ ENV OPERATOR=/usr/local/bin/qserv-operator \
     USER_NAME=qserv-operator
 
 # install operator binary
-COPY build/_output/bin/qserv-operator-1 ${OPERATOR}
+COPY build/_output/bin/qserv-operator ${OPERATOR}
 
 COPY build/bin /usr/local/bin
 COPY configmap /configmap
