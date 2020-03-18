@@ -33,7 +33,7 @@ jobs:
         export KUBECONFIG="$(kind get kubeconfig-path)"
         kubectl wait --for=condition=Ready nodes --all --timeout=5m
         kubectl get nodes
-　　　　　kubectl describe storageclass
+        kubectl describe storageclass
         ./install-operator-sdk.sh
         pwd && ls -l && ls -l build
         make test
