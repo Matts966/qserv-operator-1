@@ -24,27 +24,8 @@ jobs:
 
     - name: Build and Test
       run: |
-        TAG=$(git describe --dirty --always)
-        # Image version create by build procedure
-        OP_IMAGE="qserv/qserv-operator:${TAG}"
-        echo $OP_IMAGE
         sudo apt-get remove mysql-server --purge
         ./install-operator-sdk.sh
         git clone --depth 1 -b "v0.6.0" --single-branch https://github.com/k8s-school/kind-travis-ci.git
         ./kind-travis-ci/kind/k8s-create.sh -s
-        operator-sdk generate k8s
-        operator-sdk generate crds
-        GO111MODULE="on" operator-sdk build "${OP_IMAGE}"
-        sed "s|REPLACE_IMAGE|${OP_IMAGE}|g" "./deploy/operator.yaml.tpl" \
-          > "./deploy/operator.yaml"
-        kind load docker-image "${OP_IMAGE}"
-        ./install-operator-sdk.sh
-        git clone --depth 1 -b "v0.6.0" --single-branch https://github.com/k8s-school/kind-travis-ci.git
-        ./kind-travis-ci/kind/k8s-create.sh -s
-        kubectl create namespace qserv
-        kubectl config set-context $(shell kubectl config current-context) --namespace=qserv
-        ./deploy.sh -n qserv
-        ./wait-operator-ready.sh
-        kubectl apply -k base -n qserv
-        ./wait-qserv-ready.sh
-        ./run-integration-tests.sh
+        make test
