@@ -30,6 +30,7 @@ func getInitContainer(cr *qservv1alpha1.Qserv, component constants.ComponentName
 		Command: []string{
 			"/config-start/initdb.sh",
 		},
+		TerminationMessagePolicy: "FallbackToLogsOnError",
 		Env: []v1.EnvVar{
 			{
 				Name:  "COMPONENT_NAME",
@@ -88,6 +89,7 @@ func getMariadbContainer(cr *qservv1alpha1.Qserv, component constants.ComponentN
 			},
 		},
 		Command:        constants.Command,
+		TerminationMessagePolicy: "FallbackToLogsOnError",
 		LivenessProbe:  getProbe(constants.MariadbPortName, 10, tcpAction),
 		ReadinessProbe: getProbe(constants.MariadbPortName, 5, tcpAction),
 		VolumeMounts: []v1.VolumeMount{
@@ -136,6 +138,7 @@ func getProxyContainer(cr *qservv1alpha1.Qserv) (v1.Container, VolumeSet) {
 		LivenessProbe:  getProbe(constants.ProxyPortName, 10, tcpAction),
 		ReadinessProbe: getProbe(constants.ProxyPortName, 5, tcpAction),
 		Command:        constants.Command,
+		TerminationMessagePolicy: "FallbackToLogsOnError",
 		VolumeMounts: []v1.VolumeMount{
 			// Used for mysql socket access
 			// TODO move mysql socket in emptyDir?
@@ -161,6 +164,7 @@ func getReplicationCtlContainer(cr *qservv1alpha1.Qserv) (v1.Container, VolumeSe
 		Name:    string(constants.ReplCtlName),
 		Image:   spec.Replication.Image,
 		Command: constants.Command,
+		TerminationMessagePolicy: "FallbackToLogsOnError",
 		Env: []v1.EnvVar{
 			{
 				Name:  "WORKER_COUNT",
@@ -198,6 +202,7 @@ func getReplicationWrkContainer(cr *qservv1alpha1.Qserv) (v1.Container, VolumeSe
 		Name:    string(constants.ReplWrkName),
 		Image:   spec.Replication.Image,
 		Command: constants.Command,
+		TerminationMessagePolicy: "FallbackToLogsOnError",
 		Env: []v1.EnvVar{
 			{
 				Name:  "REPL_DB_DN",
@@ -240,6 +245,7 @@ func getWmgrContainer(cr *qservv1alpha1.Qserv) (v1.Container, VolumeSet) {
 			},
 		},
 		Command:        constants.Command,
+		TerminationMessagePolicy: "FallbackToLogsOnError",
 		LivenessProbe:  getProbe(constants.WmgrPortName, 10, tcpAction),
 		ReadinessProbe: getProbe(constants.WmgrPortName, 5, tcpAction),
 		VolumeMounts: []v1.VolumeMount{
@@ -287,6 +293,7 @@ func getXrootdContainers(cr *qservv1alpha1.Qserv, component constants.ComponentN
 			Name:    string(constants.CmsdName),
 			Image:   spec.Worker.Image,
 			Command: constants.Command,
+			TerminationMessagePolicy: "FallbackToLogsOnError",
 			Args:    []string{"-S", "cmsd"},
 			SecurityContext: &v1.SecurityContext{
 				Capabilities: &v1.Capabilities{
@@ -308,6 +315,7 @@ func getXrootdContainers(cr *qservv1alpha1.Qserv, component constants.ComponentN
 				},
 			},
 			Command:        constants.Command,
+			TerminationMessagePolicy: "FallbackToLogsOnError",
 			LivenessProbe:  getProbe(constants.XrootdPortName, 10, tcpAction),
 			ReadinessProbe: getProbe(constants.XrootdPortName, 5, tcpAction),
 			SecurityContext: &v1.SecurityContext{

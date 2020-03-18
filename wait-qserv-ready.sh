@@ -40,6 +40,7 @@ while ! kubectl wait pod --for=condition=Ready --timeout="10s" -l "app=qserv,ins
 do
   echo "Wait for Qserv pods to be ready:"
   kubectl get pod -l "app=qserv,instance=$INSTANCE"
+  kubectl describe pods
 done
 
 echo "Qserv pods are ready:"
