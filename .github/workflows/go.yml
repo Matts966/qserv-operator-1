@@ -24,6 +24,10 @@ jobs:
 
     - name: Build and Test
       run: |
+        sudo apt-get remove mysql-server --purge
+        ./install-operator-sdk.sh
+        git clone --depth 1 -b "v0.6.0" --single-branch https://github.com/k8s-school/kind-travis-ci.git
+        ./kind-travis-ci/kind/k8s-create.sh -s
         operator-sdk generate k8s
         operator-sdk generate crds
         GO111MODULE="on" operator-sdk build "${OP_IMAGE}"
