@@ -24,6 +24,10 @@ jobs:
 
     - name: Build and Test
       run: |
+        TAG=$(git describe --dirty --always)
+        # Image version create by build procedure
+        OP_IMAGE="qserv/qserv-operator:${TAG}"
+        echo $OP_IMAGE
         sudo apt-get remove mysql-server --purge
         ./install-operator-sdk.sh
         git clone --depth 1 -b "v0.6.0" --single-branch https://github.com/k8s-school/kind-travis-ci.git
