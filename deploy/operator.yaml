@@ -19,7 +19,7 @@ spec:
           image: qserv/qserv-operator:f54bb5c-dirty
           command:
           - qserv-operator
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           env:
             - name: WATCH_NAMESPACE
               valueFrom:
