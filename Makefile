@@ -14,6 +14,7 @@ build:
 	operator-sdk generate crds
 	GO111MODULE="on" operator-sdk build ${OP_IMAGE}
 	sed "s|REPLACE_IMAGE|${OP_IMAGE}|g" "./deploy/operator.yaml.tpl" \
+		| sed "s|imagePullPolicy: Always|imagePullPolicy: Never|g" \
 		> "./deploy/operator.yaml"
 	kind load docker-image ${OP_IMAGE}
 test: deploy
