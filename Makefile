@@ -12,10 +12,10 @@ deploy: build
 build:
 	operator-sdk generate k8s
 	operator-sdk generate crds
-	GO111MODULE="on" operator-sdk build "${OP_IMAGE}"
+	GO111MODULE="on" operator-sdk build ${OP_IMAGE}
 	sed "s|REPLACE_IMAGE|${OP_IMAGE}|g" "./deploy/operator.yaml.tpl" \
 		> "./deploy/operator.yaml"
-	kind load docker-image "${OP_IMAGE}"
+	kind load docker-image ${OP_IMAGE}
 test: deploy
 	./run-integration-tests.sh
 delete:
