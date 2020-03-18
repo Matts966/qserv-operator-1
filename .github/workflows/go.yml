@@ -24,8 +24,9 @@ jobs:
 
     - name: Build and Test
       run: |
-        sudo apt-get remove mysql-server --purge
         ./install-operator-sdk.sh
         git clone --depth 1 -b "v0.6.0" --single-branch https://github.com/k8s-school/kind-travis-ci.git
         ./kind-travis-ci/kind/k8s-create.sh -s
+        sudo apt-get remove mysql-server --purge
+        pwd && ls -l && ls -l build
         make test
