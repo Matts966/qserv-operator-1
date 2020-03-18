@@ -33,6 +33,7 @@ jobs:
         export KUBECONFIG="$(kind get kubeconfig-path)"
         kubectl wait --for=condition=Ready nodes --all --timeout=5m
         kubectl get nodes
+        kubectl delete storageclass --all
         ./install-operator-sdk.sh
         sudo apt-get remove mysql-server --purge
         pwd && ls -l && ls -l build

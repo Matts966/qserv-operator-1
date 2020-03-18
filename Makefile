@@ -8,7 +8,7 @@ deploy: build
 	./deploy.sh -n qserv
 	./wait-operator-ready.sh
 	kubectl apply -k base -n qserv
-	./wait-qserv-ready.sh
+	./wait.sh
 build:
 	operator-sdk generate k8s
 	operator-sdk generate crds
