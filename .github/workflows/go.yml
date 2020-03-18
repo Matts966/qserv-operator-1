@@ -1,5 +1,4 @@
-name: 
-env:
+name: test
 
 on:
   push:
